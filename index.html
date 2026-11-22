@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17365d">
+  <title>English Online Test</title>
+  <style>
+    :root {
+      --navy: #17365d;
+      --blue: #2563a6;
+      --bg: #f3f6fa;
+      --text: #172033;
+      --muted: #667085;
+      --border: #dce3ec;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+    .page { width: min(1100px, 100% - 32px); margin: 28px auto 40px; }
+    .hero {
+      background: linear-gradient(120deg, #17365d, #24588b);
+      color: white;
+      border-radius: 18px;
+      padding: 26px 28px;
+      box-shadow: 0 8px 24px rgba(23,54,93,.13);
+    }
+    .eyebrow { font-size: 12px; letter-spacing: 2px; opacity: .8; font-weight: 700; }
+    h1 { margin: 5px 0 3px; font-size: clamp(25px, 4vw, 34px); }
+    .hero p { margin: 0; color: #dce8f5; }
+    .student {
+      margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; background: white; border: 1px solid var(--border);
+      border-radius: 14px; padding: 17px 20px;
+    }
+    .student label { display: block; font-size: 13px; font-weight: 700; color: #475467; margin-bottom: 6px; }
+    .student input {
+      width: 100%; border: 0; border-bottom: 1px solid #cbd5e1;
+      padding: 8px 2px; font: inherit; outline: none; color: var(--text);
+      background: transparent;
+    }
+    .student input:focus { border-color: var(--blue); }
+    .section { margin-top: 22px; }
+    .section-heading {
+      display: flex; align-items: center; gap: 10px; margin: 0 0 11px;
+      font-size: 18px; font-weight: 750;
+    }
+    .section-heading .num {
+      display: inline-grid; place-items: center; width: 30px; height: 30px;
+      border-radius: 9px; background: #e5eef8; color: var(--navy); font-size: 14px;
+    }
+    .panel {
+      background: white; border: 1px solid var(--border);
+      border-radius: 15px; padding: 18px; box-shadow: 0 3px 12px rgba(16,24,40,.035);
+    }
+    .audio-top { display: flex; align-items: center; gap: 12px; margin-bottom: 13px; }
+    .audio-icon {
+      display: grid; place-items: center; width: 44px; height: 44px;
+      border-radius: 12px; background: #edf4fb; color: var(--navy); font-size: 22px;
+    }
+    .audio-title { font-weight: 700; }
+    .audio-subtitle { color: var(--muted); font-size: 13px; }
+    audio { display: block; width: 100%; }
+    .hint { margin: 11px 0 0; font-size: 13px; color: var(--muted); }
+    .pdf-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px; margin-bottom: 12px;
+    }
+    .file-label { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .pdf-icon { color: #c0392b; font-size: 25px; }
+    .file-name { font-weight: 700; overflow-wrap: anywhere; }
+    .file-sub { color: var(--muted); font-size: 12px; }
+    .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    button {
+      border: 1px solid var(--border); background: white; color: var(--navy);
+      padding: 8px 12px; border-radius: 9px; font-weight: 700; cursor: pointer;
+    }
+    button:hover { background: #f1f6fb; }
+    .viewer-wrap {
+      height: min(78vh, 900px); min-height: 480px;
+      background: #e8edf3; border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+    }
+    .viewer-wrap iframe { width: 100%; height: 100%; border: 0; background: white; }
+    .instructions { margin-top: 20px; }
+    .instructions ul { margin: 9px 0 0; padding-left: 21px; color: #475467; }
+    .instructions li { margin: 5px 0; }
+    footer { text-align: center; color: var(--muted); font-size: 12px; padding: 24px 0 4px; letter-spacing: .5px; }
+    .notice {
+      display: none; margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+      background: #fff7e6; border: 1px solid #f3d69a; color: #805b16; font-size: 13px;
+    }
+    @media (max-width: 640px) {
+      .page { width: min(100% - 20px, 1100px); margin-top: 10px; }
+      .hero { padding: 21px 19px; border-radius: 14px; }
+      .student { grid-template-columns: 1fr; padding: 14px 16px; gap: 12px; }
+      .panel { padding: 13px; }
+      .viewer-wrap { height: 68vh; min-height: 420px; }
+      .pdf-toolbar { align-items: flex-start; }
+      .toolbar-actions { width: 100%; }
+      .toolbar-actions button { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">LISTENING • READING • WRITING</div>
+      <h1>ENGLISH ONLINE TEST</h1>
+      <p>Read the exam paper, listen to the recording and write your answers in your notebook.</p>
+    </header>
+
+    <section class="student" aria-label="Student information">
+      <div>
+        <label for="studentName">STUDENT'S NAME</label>
+        <input id="studentName" type="text" placeholder="Enter your full name" autocomplete="name">
+      </div>
+      <div>
+        <label for="studentClass">CLASS</label>
+        <input id="studentClass" type="text" placeholder="Enter your class">
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-heading"><span class="num">1</span> LISTENING TEST</h2>
+      <div class="panel">
+        <div class="audio-top">
+          <div class="audio-icon" aria-hidden="true">♫</div>
+          <div>
+            <div class="audio-title">Listening Audio</div>
+            <div class="audio-subtitle">Listen carefully and answer the questions.</div>
+          </div>
+        </div>
+        <audio id="listeningAudio" controls preload="metadata">
+          <source src="listening.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p class="hint">You can play, pause, replay and adjust the volume as needed.</p>
+        <div class="notice" id="audioNotice">The audio file “listening.mp3” could not be loaded. Please check that it is in the same folder as this webpage.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-heading"><span class="num">2</span> EXAM PAPER</h2>
+      <div class="panel">
+        <div class="pdf-toolbar">
+          <div class="file-label">
+            <span class="pdf-icon" aria-hidden="true">▤</span>
+            <div>
+              <div class="file-name">exam.pdf</div>
+              <div class="file-sub">Exam paper · PDF document</div>
+            </div>
+          </div>
+          <div class="toolbar-actions">
+            <button type="button" id="openPdf">Open PDF</button>
+            <button type="button" id="fullscreenPdf">Full screen</button>
+          </div>
+        </div>
+        <div class="viewer-wrap" id="pdfViewerWrap">
+          <iframe id="pdfViewer" src="exam.pdf#toolbar=1&navpanes=0&view=FitH" title="English exam paper">
+            Your browser does not support embedded PDF viewing.
+            <a href="exam.pdf">Open the exam PDF</a>.
+          </iframe>
+        </div>
+        <div class="notice" id="pdfNotice">The PDF file “exam.pdf” could not be loaded. Please check that it is in the same folder as this webpage.</div>
+      </div>
+    </section>
+
+    <section class="panel instructions">
+      <div class="section-heading" style="margin:0"><span class="num">✓</span> TEST INSTRUCTIONS</div>
+      <ul>
+        <li>Read each question carefully.</li>
+        <li>Listen to the recording and answer the listening questions.</li>
+        <li>You may listen to the audio more than once.</li>
+        <li>Write all your answers neatly in your notebook.</li>
+        <li>Check your work before submitting it to your teacher.</li>
+      </ul>
+    </section>
+
+    <footer>GOOD LUCK! • DO YOUR BEST!</footer>
+  </main>
+
+  <script>
+    const audio = document.getElementById('listeningAudio');
+    const audioNotice = document.getElementById('audioNotice');
+    const pdfViewer = document.getElementById('pdfViewer');
+    const pdfNotice = document.getElementById('pdfNotice');
+
+    audio.addEventListener('error', () => { audioNotice.style.display = 'block'; });
+    pdfViewer.addEventListener('load', () => {
+      // The browser's PDF viewer may not expose loading errors to the parent page.
+    });
+
+    document.getElementById('openPdf').addEventListener('click', () => {
+      window.open('exam.pdf', '_blank', 'noopener');
+    });
+
+    document.getElementById('fullscreenPdf').addEventListener('click', async () => {
+      const viewer = document.getElementById('pdfViewerWrap');
+      try {
+        if (!document.fullscreenElement) {
+          await viewer.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch (error) {
+        pdfNotice.textContent = 'Full-screen mode is not available in this browser. You can use the Open PDF button instead.';
+        pdfNotice.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
